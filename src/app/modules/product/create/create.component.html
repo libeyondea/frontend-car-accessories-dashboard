@@ -1,0 +1,147 @@
+<div class="content-header py-3">
+	<app-breadcrumb title="Create product"></app-breadcrumb>
+</div>
+<div class="content-body">
+	<div class="card shadow-sm mb-4">
+		<div class="card-header">Create product</div>
+		<div class="card-body">
+			<form class="row g-3" [formGroup]="createProductForm" (ngSubmit)="onSubmit()">
+				<div class="col-md-12">
+					<label htmlFor="image" class="form-label">
+						Image <span class="text-danger">*</span>
+					</label>
+					<input class="form-control" type="file" id="image" name="image" formControlName="image" required
+						[ngClass]="{'is-invalid': image.invalid && (image.dirty || image.touched)}"
+						(change)="handleFileInput($event)">
+					<div *ngIf="image.invalid && (image.dirty || image.touched)" class="invalid-feedback">
+						<ng-container *ngIf="image.errors?.['required']">
+							Image is required.
+						</ng-container>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label htmlFor="name" class="form-label">
+						Name <span class="text-danger">*</span>
+					</label>
+					<input type="text" placeholder="Enter name" class="form-control" name="name" id="name"
+						formControlName="name" required
+						[ngClass]="{'is-invalid': name.invalid && (name.dirty || name.touched)}" />
+					<div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback">
+						<ng-container *ngIf="name.errors?.['required']">
+							Name is required.
+						</ng-container>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label htmlFor="slug" class="form-label">
+						Slug
+					</label>
+					<input type="text" placeholder="Enter slug" class="form-control" name="slug" id="slug"
+						formControlName="slug" />
+				</div>
+				<div class="col-md-6">
+					<label htmlFor="category" class="form-label">
+						Category <span class="text-danger">*</span>
+					</label>
+					<select class="form-select" name="category" id="category" formControlName="category" required
+						[ngClass]="{'is-invalid': category.invalid && (category.dirty || category.touched)}">
+						<option value={{0}}>Select category</option>
+						<option *ngFor="let category of categories" [value]="category.id">
+							{{ category.name }}
+						</option>
+					</select>
+					<div *ngIf="category.invalid && (category.dirty || category.touched)" class="invalid-feedback">
+						<ng-container *ngIf="category.errors?.['required']">
+							Category is required.
+						</ng-container>
+						<ng-container *ngIf="category.errors?.['min']">
+							Select category.
+						</ng-container>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label htmlFor="brand" class="form-label">
+						Brand <span class="text-danger">*</span>
+					</label>
+					<select class="form-select" name="brand" id="brand" formControlName="brand" required
+						[ngClass]="{'is-invalid': brand.invalid && (brand.dirty || brand.touched)}">
+						<option value={{0}}>Select brand</option>
+						<option *ngFor="let brand of brands" [value]="brand.id">
+							{{ brand.name }}
+						</option>
+					</select>
+					<div *ngIf="brand.invalid && (brand.dirty || brand.touched)" class="invalid-feedback">
+						<ng-container *ngIf="brand.errors?.['required']">
+							Brand is required.
+						</ng-container>
+						<ng-container *ngIf="brand.errors?.['min']">
+							Select brand.
+						</ng-container>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<label htmlFor="price" class="form-label">
+						Price <span class="text-danger">*</span>
+					</label>
+					<input type="number" placeholder="Enter price" class="form-control" name="price" id="price"
+						formControlName="price" required
+						[ngClass]="{'is-invalid': price.invalid && (price.dirty || price.touched)}" />
+					<div *ngIf="price.invalid && (price.dirty || price.touched)" class="invalid-feedback">
+						<ng-container *ngIf="price.errors?.['required']">
+							Price is required.
+						</ng-container>
+						<ng-container *ngIf="price.errors?.['min']">
+							Price must be greater than 0.
+						</ng-container>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label htmlFor="discount" class="form-label">
+						Discount <span class="text-danger">*</span>
+					</label>
+					<input type="number" placeholder="Enter discount" class="form-control" name="discount" id="discount"
+						formControlName="discount" required
+						[ngClass]="{'is-invalid': discount.invalid && (discount.dirty || discount.touched)}" />
+					<div *ngIf="discount.invalid && (discount.dirty || discount.touched)" class="invalid-feedback">
+						<ng-container *ngIf="discount.errors?.['required']">
+							Discount is required.
+						</ng-container>
+						<ng-container *ngIf="discount.errors?.['min']">
+							Discount must be greater than 0.
+						</ng-container>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label htmlFor="quantity" class="form-label">
+						Quantity <span class="text-danger">*</span>
+					</label>
+					<input type="number" placeholder="Enter quantity" class="form-control" name="quantity" id="quantity"
+						formControlName="quantity" required
+						[ngClass]="{'is-invalid': quantity.invalid && (quantity.dirty || quantity.touched)}" />
+					<div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)" class="invalid-feedback">
+						<ng-container *ngIf="quantity.errors?.['required']">
+							Quantity is required.
+						</ng-container>
+						<ng-container *ngIf="quantity.errors?.['min']">
+							Quantity must be greater than 0.
+						</ng-container>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<label htmlFor="details" class="form-label">
+						Details
+					</label>
+					<textarea placeholder="Enter details" class="form-control" name="details" id="details"
+						formControlName="details" rows="5"></textarea>
+				</div>
+				<div class="col-md-12">
+					<button class="btn btn-primary" type="submit" [disabled]="createProductForm.invalid || isLoading">
+						{{ isLoading? 'Creating': 'Create'}}
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,47 @@
+<div class="container-fluid">
+	<div class="row min-vh-100">
+		<div class="col-md-7 col-lg-5 mx-auto my-auto">
+			<div class="card shadow-sm mb-4 p-4">
+				<div class="card-body">
+					<h2 class="text-center mb-5">Signin Dashboard</h2>
+					<form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+						<div class="form-floating mb-3">
+							<input type="text" placeholder="Enter user name" class="form-control" name="user_name"
+								id="user_name" formControlName="user_name" required
+								[ngClass]="{'is-invalid': user_name.invalid && (user_name.dirty || user_name.touched)}" />
+							<label htmlFor="user_name" class="form-label">
+								User name <span class="text-danger">*</span>
+							</label>
+							<div *ngIf="user_name.invalid && (user_name.dirty || user_name.touched)"
+								class="invalid-feedback">
+								<ng-container *ngIf="user_name.errors?.['required']">
+									user_name is required.
+								</ng-container>
+							</div>
+						</div>
+						<div class="form-floating mb-3">
+							<input type="password" placeholder="Enter password" class="form-control" name="password"
+								id="password" formControlName="password" required
+								[ngClass]="{'is-invalid': password.invalid && (password.dirty || password.touched)}" />
+							<label htmlFor="password" class="form-label">
+								Password <span class="text-danger">*</span>
+							</label>
+							<div *ngIf="password.invalid && (password.dirty || password.touched)"
+								class="invalid-feedback">
+								<ng-container *ngIf="password.errors?.['required']">
+									password is required.
+								</ng-container>
+							</div>
+						</div>
+						<div class="text-center">
+							<button class="btn btn-primary btn-lg" type="submit"
+								[disabled]="signinForm.invalid || isLoading">
+								{{ isLoading? 'Signing': 'Signin'}}
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

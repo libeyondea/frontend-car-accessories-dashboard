@@ -1,0 +1,37 @@
+<div class="content-header py-3">
+	<app-breadcrumb title="Update brand"></app-breadcrumb>
+</div>
+<div class="content-body">
+	<div class="card shadow-sm mb-4">
+		<div class="card-header">Update brand</div>
+		<div class="card-body">
+			<form class="row g-3" [formGroup]="updateBrandForm" (ngSubmit)="onSubmit()">
+				<div class="col-md-6">
+					<label htmlFor="name" class="form-label">
+						Name <span class="text-danger">*</span>
+					</label>
+					<input type="text" placeholder="Enter name" class="form-control" name="name" id="name"
+						formControlName="name" required
+						[ngClass]="{'is-invalid': name.invalid && (name.dirty || name.touched)}" />
+					<div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback">
+						<ng-container *ngIf="name.errors?.['required']">
+							Name is required.
+						</ng-container>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label htmlFor="slug" class="form-label">
+						Slug
+					</label>
+					<input type="text" placeholder="Enter slug" class="form-control" name="slug" id="slug"
+						formControlName="slug" />
+				</div>
+				<div class="col-md-12">
+					<button class="btn btn-primary" type="submit" [disabled]="updateBrandForm.invalid || isLoading">
+						{{ isLoading? 'Updating': 'Update'}}
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

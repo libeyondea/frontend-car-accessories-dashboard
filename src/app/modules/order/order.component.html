@@ -1,0 +1,136 @@
+<div class="content-header py-3">
+	<app-breadcrumb title="Orders"></app-breadcrumb>
+</div>
+<div class="content-body">
+	<div class="card shadow-sm mb-4">
+		<div class="card-header">List orders</div>
+		<div class="card-body">
+			<div class="position-relative">
+				<div class="table-responsive-xxl mb-2 mb-sm-3">
+					<ng-container *ngIf="loading else NotLoading">
+						<app-tableloading></app-tableloading>
+					</ng-container>
+					<ng-template #NotLoading>
+						<ng-container *ngIf="!!orders.length">
+							<table class="table table-sm table-striped table-hover table-bordered mb-0"
+								style="min-width: 888px">
+								<thead>
+									<tr>
+										<th class="align-middle">
+											Id
+										</th>
+										<th class="align-middle" style="width: 109px">
+											User id
+										</th>
+										<th class="align-middle">First name</th>
+										<th class="align-middle">
+											Last name
+										</th>
+										<th class="align-middle">
+											Email
+										</th>
+										<th class="align-middle">
+											Phone number
+										</th>
+										<th class="align-middle">
+											Address
+										</th>
+										<th class="align-middle">
+											Status
+										</th>
+										<th class="align-middle">
+											Total amount
+										</th>
+										<th class="align-middle" style="width: 11%"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<ng-container
+										*ngFor="let order of orders | paginate: { id: 'server', itemsPerPage: limit, currentPage: p, totalItems: total }">
+										<tr>
+											<td class="align-middle small">{{order.id}}</td>
+											<td class="align-middle">
+												{{order.user_id }}
+											</td>
+											<td class="align-middle small">{{order.first_name}}</td>
+											<td class="align-middle small">
+												{{order.last_name}}
+											</td>
+											<td class="align-middle small">
+												{{order.email}}
+											</td>
+											<td class="align-middle small">{{order.phone_number}}
+											</td>
+											<td class="align-middle small">{{order.address}}
+											</td>
+											<td class="align-middle small">{{order.status}}
+											</td>
+											<td class="align-middle small">{{totalPriceOrder(order.orderproducts) |
+												currency:'VND': 'symbol'}}
+											</td>
+											<td class="align-middle">
+												<div class="d-flex align-items-center justify-content-center">
+
+												</div>
+											</td>
+										</tr>
+										<ng-container *ngIf="!!order?.orderproducts?.length">
+											<tr>
+												<td colSpan="1" style="width: 70px"></td>
+												<td colSpan="9">
+													<table class="table table-sm table-striped table-bordered">
+														<thead>
+															<tr>
+																<th class="align-middle">
+																	Id
+																</th>
+																<th class="align-middle" style="width: 109px">
+																	Image
+																</th>
+																<th class="align-middle">Name</th>
+																<th class="align-middle">
+																	Price
+																</th>
+																<th class="align-middle">
+																	Quantity
+																</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr *ngFor="let orderproduct of order.orderproducts">
+																<td class="align-middle small">
+																	{{orderproduct.product.id}}
+																</td>
+																<td class="align-middle">
+																	<ng-container
+																		*ngIf="orderproduct.product?.productimages[0]?.url">
+																		<img src={{orderproduct.product.productimages[0].url}}
+																			width="100" height="60" />
+																	</ng-container>
+																</td>
+																<td class="align-middle small">
+																	{{orderproduct.product.name}}
+																</td>
+																<td class="align-middle small">
+																	{{orderproduct.price | currency:'VND': 'symbol'}}
+																</td>
+																<td class="align-middle small">
+																	{{orderproduct.quantity}}
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</ng-container>
+									</ng-container>
+								</tbody>
+							</table>
+						</ng-container>
+					</ng-template>
+				</div>
+				<pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+			</div>
+		</div>
+	</div>
+</div>

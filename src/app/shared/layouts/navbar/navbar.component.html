@@ -1,0 +1,42 @@
+<nav class="main-navbar py-1 bg-white border-bottom d-flex align-items-center shadow-sm">
+	<div class="container-fluid d-flex align-items-center">
+		<button type="button" class="d-flex align-items-center border-0 bg-transparent fs-3 p-0"
+			(click)="onlickSidebar()">
+			<i class="fas fa-bars"></i>
+		</button>
+		<ul class="nav d-flex mx-3">
+			<li class="nav-item">
+				<a href="/" class="nav-link link-secondary px-2">
+					Home
+				</a>
+			</li>
+		</ul>
+		<form class="d-flex align-items-center border rounded-pill px-3 bg-light">
+			<input type="search" class="form-control border-0 bg-light py-1 px-0" placeholder="Search..."
+				aria-label="Search" />
+			<button type="button" class="border-0 bg-transparent p-0 d-flex">
+				<i class="fas fa-search"></i>
+			</button>
+		</form>
+		<div class="ms-auto dropdown nav-item">
+			<a aria-haspopup="true" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+				aria-expanded="false"
+				class="d-flex align-items-center p-2 dropdown-toggle-none dropdown-toggle nav-link" role="button"
+				href="#">
+				<img width="34" height="34" src="assets/images/libeyondea.png" alt="admin" class="rounded-circle">
+			</a>
+			<div class="p-0 dropdown-menu shadow-sm" aria-labelledby="navbarDropdownMenuLink">
+				<a class="dropdown-item" href="#">
+					<span class="d-block h6 mb-0">
+						{{ current?.user?.first_name }} {{ current?.user?.last_name }}
+					</span>
+					<small class="text-secondary">@{{ current?.user?.user_name }}</small>
+				</a>
+				<div class="dropdown-divider m-0"></div>
+				<a class="dropdown-item" href="#" (click)="signout()">
+					Logout
+				</a>
+			</div>
+		</div>
+	</div>
+</nav>
